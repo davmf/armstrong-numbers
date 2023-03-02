@@ -1,15 +1,24 @@
 pub fn is_armstrong_number(num: u32) -> bool {
-    let digits = get_digits(num);
-    let digit_count = digits.len();
-    let mut sum = 0;
+    let digits = extract_digits_from_integer(num);
+    let exponent: u32 = digits.len().try_into().unwrap();
+    let mut sum: u32 = 0;
 
     for digit in digits {
-        let value = 
+        sum += digit.pow(exponent);
     }
 
+    num == sum
 }
 
-fn get_digits(num: u32) -> Vec<char> {
-    let num_string = format!("{}", num);
-    num_string.chars().collect()
+fn extract_digits_from_integer(input_int: u32) -> Vec<u32> {
+    let input_str = input_int.to_string();
+    let mut digits = vec![];
+
+    for c in input_str.chars() {
+        if let Some(digit) = c.to_digit(10) {
+            digits.push(digit as u32);
+        }
+    }
+
+    digits
 }
